@@ -6,7 +6,7 @@
 /*   By: jabenjam <jabenjam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/15 15:15:20 by jabenjam          #+#    #+#             */
-/*   Updated: 2020/03/03 23:56:17 by jabenjam         ###   ########.fr       */
+/*   Updated: 2020/03/04 10:45:36 by jabenjam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int			get_next_line(int fd, char **line)
 	else
 		return (get_line(line, dat));
 }
-
+/*
 int				main(int ac, char **av)
 {
 	char 		*line;
@@ -134,3 +134,4 @@ int				main(int ac, char **av)
 			free(line);
 	}
 }
+*/
