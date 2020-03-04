@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jabenjam <jabenjam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/03 11:58:44 by jabenjam          #+#    #+#             */
-/*   Updated: 2020/03/03 11:58:44 by jabenjam         ###   ########.fr       */
+/*   Created: 2020/03/04 12:10:22 by jabenjam          #+#    #+#             */
+/*   Updated: 2020/03/04 15:45:28 by jabenjam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,88 +14,56 @@
 #include <unistd.h>
 #include <stdio.h>
 
-size_t	ft_strlenc(char *str, char c)
+int					ft_strlen(char *str)
 {
-	unsigned int		i;
+	unsigned int	i;
 
 	i = 0;
-	while (str[i] != c && str[i] != '\0')
+	if (!str)
+		return (0);
+	while (str && str[i] != '\0')
 		i++;
 	return (i);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char				*ft_strjoin(char *s1, char *s2)
 {
 	unsigned int	i;
 	unsigned int	j;
 	char			*new;
 
-	i = ft_strlenc(s1, '\0') + ft_strlenc(s2, '\0');
+	i = ft_strlen(s1) + ft_strlen(s2);
 	j = 0;
-	if (!(new = malloc(sizeof(char) * i + 1)))
+	if (i == 0)
+		return (0);
+	if (!(new = malloc(sizeof(char) * (i + 1))))
 		return (NULL);
 	i = 0;
-	while (s1[i])
+	while (s1 && s1[i])
 	{
 		new[i] = s1[i];
 		i++;
 	}
-	while (s2[j])
+	while (s2 && s2[j])
 	{
 		new[i + j] = s2[j];
 		j++;
 	}
 	new[i + j] = '\0';
+	free(s1);
 	return (new);
 }
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
+int					ft_findn(char *s)
 {
-	char	*new;
-	size_t	i;
+	int				i;
 
 	i = 0;
 	if (!s)
-		return (NULL);
-	if (!(new = malloc(sizeof(char) * len + 1)))
 		return (0);
-	while (s[i + start] && i < len && start < len)
+	while (s && s[i] != '\0')
 	{
-		new[i] = s[i + start];
-		i++;
-	}
-	new[i] = '\0';
-	return (new);
-}
-
-char	*ft_strcpy(char *dest, char *src)
-{
-	int		i;
-
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
-}
-
-int		ft_findc(char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	if (c == '\0')
-	{
-		while (s[i] != '\0')
-			i++;
-		return (1);
-	}
-	while (s[i] != '\0')
-	{
-		if (s[i] == c)
+		if (s[i] == '\n')
 			return (1);
 		i++;
 	}

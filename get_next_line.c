@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jabenjam <jabenjam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/15 15:15:20 by jabenjam          #+#    #+#             */
-/*   Updated: 2020/03/04 10:45:36 by jabenjam         ###   ########.fr       */
+/*   Created: 2020/03/04 12:10:24 by jabenjam          #+#    #+#             */
+/*   Updated: 2020/03/04 15:48:18 by jabenjam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,120 +18,78 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-static t_list		*new_file(int fd)
+char			*get_remain(char *remain)
 {
-	static t_list		*file;
-	char				*buf[BUFFER_SIZE + 1];
+	char		*new;
+	int			i;
+	int			j;
 
-	if (read(fd, buf, O_RDONLY) < 0)
-		return (NULL);
-	if (!(file = (t_list*)malloc(sizeof(*file))))
-		return (NULL);
-	file->fd = fd;
-	if (!(file->rem = (char*)malloc(sizeof(file->rem))))
-		return (NULL);
-	file->rem[0] = '\0';
-	file->next = NULL;
-	return (file);
+	i = 0;
+	j = 0;
+	if (!remain)
+		return (0);
+	while (remain && remain[i] != '\0' && remain[i] != '\n')
+		i++;
+	if (remain[i] == '\0')
+	{
+		free(remain);
+		return (0);
+	}
+	if (!(new = malloc(sizeof(char) * (ft_strlen(remain) - i) + 1)))
+		return (0);
+	i++;
+	while (remain && remain[i] != '\0')
+		new[j++] = remain[i++];
+	new[j] = '\0';
+	free(remain);
+	return (new);
 }
 
-void		del_list(t_list **begin)
+char			*get_line(char *remain)
 {
-	t_list		*current;
-	t_list		*previous;
+	int			i;
+	char		*new;
 
-	current = *begin;
-	previous = *begin;
-	if (!begin)
-		return ;
-	while (current)
+	i = 0;
+	while (remain && remain[i] != '\0' && remain[i] != '\n')
+		i++;
+	if (!(new = malloc(sizeof(char) * (i + 1))))
+		return (0);
+	i = 0;
+	while (remain && remain[i] != '\0' && remain[i] != '\n')
 	{
-		previous = current;
-		free(previous->rem);
-		free(previous);
-		current = current->next;
+		new[i] = remain[i];
+		i++;
 	}
+	new[i] = '\0';
+	return (new);
 }
 
-static t_list		*get_file(t_list *dat, int fd)
+int				get_next_line(int fd, char **line)
 {
-	if (!dat)
-	{
-		dat = new_file(fd);
-		return (dat);
-	}
-	while (dat)
-	{
-		if (dat->fd == fd)
-			return (dat);
-		if (dat->next == NULL)
-		{
-			dat->next = new_file(fd);
-			return (dat->next);
-		}
-		dat = dat->next;
-	}
-	dat = new_file(fd);
-	return (dat);
-}
+	char		*buffer;
+	static char	*remain;
+	int			out;
 
-int			get_line(char **line, t_list *dat)
-{
-	int				i;
-	char			*tmp;
-
-	i = ft_strlenc(dat->rem, '\n');
-	tmp = dat->rem;
-	if (!(*line = ft_substr(dat->rem, 0, i)))
+	out = 1;
+	if (!fd || !line || BUFFER_SIZE <= 0)
 		return (-1);
-	if (dat->rem[i] == '\n')
-		ft_strcpy(dat->rem, dat->rem + i + 1);
-	else
-		dat->rem[0] = '\0';
+	if (!(buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+		return (-1);
+	while (!ft_findn(remain) && out != 0)
+	{
+		if ((out = read(fd, buffer, BUFFER_SIZE)) == -1)
+		{
+			free(buffer);
+			return (-1);
+		}
+		buffer[out] = '\0';
+		remain = ft_strjoin(remain, buffer);
+	}
+	free(buffer);
+	*line = get_line(remain);
+	remain = get_remain(remain);
+	if (out == 0)
+		return (0);
 	return (1);
 }
-
-int			get_next_line(int fd, char **line)
-{
-	char			buff[BUFFER_SIZE + 1];
-	int				out;
-	static t_list	*dat;
-	char 			*tmp;
-
-	if (!fd || !line || BUFFER_SIZE <= 0 || !(dat = get_file(dat, fd)))
-		return (-1);
-	while ((!ft_findc(dat->rem, '\n')) &&
-			(out = read(fd, buff, BUFFER_SIZE > 0)))
-	{
-		buff[out] = '\0';
-		tmp = dat->rem;
-		if (!(dat->rem = ft_strjoin(dat->rem, buff)))
-			return (-1);
-		free(tmp);
-	}
-	if (out <= 0)
-	{
-		del_list(&dat);
-		return (out);
-	}
-	else
-		return (get_line(line, dat));
-}
-/*
-int				main(int ac, char **av)
-{
-	char 		*line;
-	int			fd1;
-	int			fd2;
-	int 		ret = 0;
-	int			i = 0;
-
-	fd1 = open(av[1], O_RDONLY);
-//	fd2 = open(av[2], O_RDONLY);
-	while ((ret = get_next_line(fd1, &line)))
-	{
-			printf("ligne %d (%d): %s\n", i++, ret, line);
-			free(line);
-	}
-}
-*/

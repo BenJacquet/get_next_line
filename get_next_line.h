@@ -5,33 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jabenjam <jabenjam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/15 14:45:32 by jabenjam          #+#    #+#             */
-/*   Updated: 2020/03/03 11:59:19 by jabenjam         ###   ########.fr       */
+/*   Created: 2020/03/04 12:10:19 by jabenjam          #+#    #+#             */
+/*   Updated: 2020/03/04 15:45:47 by jabenjam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # include <stdlib.h>
 
-typedef struct		s_list
-{
-	int				fd;
-	char			*rem;
-	struct s_list	*next;
-}					t_list;
-
-size_t				ft_strlenc(char *str, char c);
-char				*ft_strcpy(char *dest, char *src);
+int					ft_strlen(char *str);
 char				*ft_strjoin(char *s1, char *s2);
-char				*ft_substr(char *s, unsigned int start, size_t len);
-int					ft_findc(char *s, int c);
+int					ft_findn(char *s);
 int					get_next_line(int fd, char **line);
-int					get_line(char **line, t_list *dat);
-static t_list		*get_file(t_list *dat, int fd);
-void				del_list(t_list **begin);
-static t_list		*new_file(int fd);
+char				*get_line(char *rem);
+char				*get_remain(char *rem);
 
 #endif
 
