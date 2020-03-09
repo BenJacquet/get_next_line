@@ -6,7 +6,7 @@
 /*   By: jabenjam <jabenjam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:10:22 by jabenjam          #+#    #+#             */
-/*   Updated: 2020/03/09 13:35:58 by jabenjam         ###   ########.fr       */
+/*   Updated: 2020/03/09 13:47:59 by jabenjam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ char				*ft_strjoin(char *s1, char *s2)
 
 	i = ft_strlen(s1) + ft_strlen(s2);
 	j = 0;
-	if (i == 0)
-		i = 1;
 	if (!(new = malloc(sizeof(char) * (i + 1))))
 		return (NULL);
 	i = 0;
