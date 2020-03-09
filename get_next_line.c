@@ -6,7 +6,7 @@
 /*   By: jabenjam <jabenjam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:10:24 by jabenjam          #+#    #+#             */
-/*   Updated: 2020/03/04 15:48:18 by jabenjam         ###   ########.fr       */
+/*   Updated: 2020/03/09 13:39:09 by jabenjam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ char			*get_remain(char *remain)
 	i = 0;
 	j = 0;
 	if (!remain)
+	{
+		free(remain);
 		return (0);
+	}
 	while (remain && remain[i] != '\0' && remain[i] != '\n')
 		i++;
 	if (remain[i] == '\0')
