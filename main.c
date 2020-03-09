@@ -1,4 +1,4 @@
-int		main(int ac, char **av)
+/*int		main(int ac, char **av)
 {
 	int		ret = 0;
 	int		i = 0;
@@ -16,4 +16,4 @@ int		main(int ac, char **av)
 	printf("line %d (%d) = %s\n", i, ret, line);
 	free(line);
 	system("leaks a.out");
-}
+}*/
