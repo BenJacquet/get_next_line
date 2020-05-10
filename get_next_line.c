@@ -6,7 +6,7 @@
 /*   By: jabenjam <jabenjam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:10:24 by jabenjam          #+#    #+#             */
-/*   Updated: 2020/03/09 14:16:06 by jabenjam         ###   ########.fr       */
+/*   Updated: 2020/05/10 14:52:23 by jabenjam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,26 +67,20 @@ char			*get_line(char *remain)
 
 int				get_next_line(int fd, char **line)
 {
-	char		*buffer;
+	char		buffer[BUFFER_SIZE + 1];
 	static char	*remain;
 	int			out;
 
 	out = 1;
-	if (!fd || !line || BUFFER_SIZE <= 0)
-		return (-1);
-	if (!(buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	if (fd < 0 || !line || BUFFER_SIZE <= 0 || read(fd, buffer, 0) < 0)
 		return (-1);
 	while (!ft_findn(remain) && out != 0)
 	{
 		if ((out = read(fd, buffer, BUFFER_SIZE)) == -1)
-		{
-			free(buffer);
 			return (-1);
-		}
 		buffer[out] = '\0';
 		remain = ft_strjoin(remain, buffer);
 	}
-	free(buffer);
 	*line = get_line(remain);
 	remain = get_remain(remain);
 	if (out == 0)

@@ -1,4 +1,12 @@
-/*int		main(int ac, char **av)
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include "get_next_line.c"
+
+int		main(int ac, char **av)
 {
 	int		ret = 0;
 	int		i = 0;
@@ -16,4 +24,4 @@
 	printf("line %d (%d) = %s\n", i, ret, line);
 	free(line);
 	system("leaks a.out");
-}*/
+}
