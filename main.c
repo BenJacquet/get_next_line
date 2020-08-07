@@ -5,6 +5,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include "get_next_line.c"
+#include "get_next_line_utils.c"
+
 
 int		main(int ac, char **av)
 {
@@ -15,7 +17,7 @@ int		main(int ac, char **av)
 	
 	ac = (int)ac;
 	fd = open(av[1], O_RDONLY);
-	while ((ret = get_next_line(fd, &line)))
+	while ((ret = get_next_line(fd, &line) > 0))
 	{
 		printf("line %d (%d) = %s\n", i, ret, line);
 		free(line);

@@ -6,7 +6,7 @@
 /*   By: jabenjam <jabenjam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:10:24 by jabenjam          #+#    #+#             */
-/*   Updated: 2020/05/10 14:52:23 by jabenjam         ###   ########.fr       */
+/*   Updated: 2020/08/07 11:56:49 by jabenjam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ int				get_next_line(int fd, char **line)
 	while (!ft_findn(remain) && out != 0)
 	{
 		if ((out = read(fd, buffer, BUFFER_SIZE)) == -1)
+		{
+			free(buffer);
 			return (-1);
+		}
 		buffer[out] = '\0';
 		remain = ft_strjoin(remain, buffer);
 	}
