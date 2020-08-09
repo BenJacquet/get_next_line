@@ -6,17 +6,11 @@
 /*   By: jabenjam <jabenjam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:10:24 by jabenjam          #+#    #+#             */
-/*   Updated: 2020/08/08 16:37:42 by jabenjam         ###   ########.fr       */
+/*   Updated: 2020/08/09 10:22:44 by jabenjam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 
 char			*get_remain(char *remain)
 {
@@ -77,10 +71,7 @@ int				get_next_line(int fd, char **line)
 	while (!ft_findn(remain) && out != 0)
 	{
 		if ((out = read(fd, buffer, BUFFER_SIZE)) == -1)
-		{
-			free(buffer);
 			return (-1);
-		}
 		buffer[out] = '\0';
 		remain = ft_strjoin(remain, buffer);
 	}

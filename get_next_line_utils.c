@@ -6,13 +6,11 @@
 /*   By: jabenjam <jabenjam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:10:22 by jabenjam          #+#    #+#             */
-/*   Updated: 2020/08/08 16:42:05 by jabenjam         ###   ########.fr       */
+/*   Updated: 2020/08/09 10:26:04 by jabenjam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <unistd.h>
-#include <stdio.h>
 
 int					ft_strlen(char *str)
 {

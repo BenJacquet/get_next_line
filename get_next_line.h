@@ -6,7 +6,7 @@
 /*   By: jabenjam <jabenjam@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 12:10:19 by jabenjam          #+#    #+#             */
-/*   Updated: 2020/08/08 16:40:45 by jabenjam         ###   ########.fr       */
+/*   Updated: 2020/08/09 10:26:38 by jabenjam         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define GET_NEXT_LINE_H
 
 # include <stdlib.h>
-# include <stdio.h>
 # include <unistd.h>
 # include <sys/types.h>
 # include <sys/stat.h>
